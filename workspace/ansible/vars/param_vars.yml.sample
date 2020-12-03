@@ -1,0 +1,6 @@
+username: USERNAME
+password: Password1234
+rootdirectory: sample_site
+domain: www.sample.jp
+ipaddress: XXX.XXX.XXX.XXX
+portnum: 80

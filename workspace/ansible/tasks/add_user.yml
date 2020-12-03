@@ -1,0 +1,7 @@
+- name: Add user, setting password and groups
+  # 変数 username の値をユーザ名に、 password をパスワードに(ハッシュ値で書き込み)、サブグループに apache を追加
+  user:
+    name: "{{ username }}"
+    password: "{{ password | password_hash('sha512') }}"
+    groups: apache
+    append: yes

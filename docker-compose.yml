@@ -1,0 +1,8 @@
+version: '3.1'
+services:
+  ansible:
+    build: .
+    volumes:
+      - ./workspace:/workspace
+    tty: true
+    entrypoint: bash -c "bash /workspace/entrypoint.sh && /bin/bash"

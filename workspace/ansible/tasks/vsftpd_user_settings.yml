@@ -1,0 +1,19 @@
+- name: Settings vsftpd user_list
+  blockinfile:
+    path: /etc/vsftpd/user_list
+    create: yes
+    insertafter: EOF
+    marker: "# {mark} ANSIBLE basic setup: {{ username }}"
+    block: "{{ username }}"
+- name: Settings vsftpd user_conf
+  blockinfile:
+    path: "/etc/vsftpd/user_conf/{{ username }}"
+    create: yes
+    insertafter: EOF
+    marker: "# {mark} ANSIBLE basic setup: {{ username }}"
+    block: "local_root=/var/www/{{ rootdirectory }}"
+- name: Restart vsftpd
+  systemd:
+    name: vsftpd.service
+    state: restarted
+    daemon_reload: yes

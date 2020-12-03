@@ -1,0 +1,4 @@
+/workspace/*
+!/workspace/entrypoint.sh
+!/workspace/ansible/
+/workspace/ansible/vars/param_vars.yml

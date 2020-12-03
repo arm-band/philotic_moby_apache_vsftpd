@@ -1,0 +1,29 @@
+- name: Settings vsftpd and httpd
+
+  become: yes
+  become_user: ADMIN_USER
+  become_method: su
+
+  hosts:
+    - add_vhost_servers
+
+  vars_files: ./vars/param_vars.yml
+
+  tasks:
+    - name: Add Linux User
+      include_tasks: ./tasks/add_user.yml
+      vars:
+        user: "{{ username }}"
+        passwd: "{{ password }}"
+    - name: Settings vsftpd user_list and user_conf
+      include_tasks: ./tasks/vsftpd_user_settings.yml
+      vars:
+        user: "{{ username }}"
+        directory: "{{ rootdirectory }}"
+    - name: Setup Apache conffile
+      include_tasks: ./tasks/apache_settings.yml
+      vars:
+        directory: "{{ rootdirectory }}"
+        url: "{{ domain }}"
+        ip: "{{ ipaddress }}"
+        portnumber: "{{ portnum }}"

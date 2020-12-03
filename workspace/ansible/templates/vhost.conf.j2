@@ -1,0 +1,19 @@
+<VirtualHost {{ ipaddress }}:{{ portnum }}>
+DocumentRoot "/var/www/{{ rootdirectory }}/web"
+ServerName {{ domain }}
+{% if domain | regex_search("^www\.", ignorecase=True) %}
+ServerAlias {{ domain | regex_replace("^www\.(.*)$", '\\1') }}
+{% endif %}
+ScriptAlias /cgi-bin/ /var/www/{{ rootdirectory }}/web/cgi-bin/
+{% if domain | regex_search("^www\.", ignorecase=True) %}
+RewriteEngine on
+RewriteCond %{HTTP_HOST} {{ domain | regex_replace("^www\.(.*)$", '^\\1$') | regex_replace("\.", '\.') }}
+RewriteRule ^(.*)$       http://{{ domain }}$1 [R=301,L]
+{% endif %}
+<Directory "/var/www/{{ rootdirectory }}/web">
+allow from all
+AllowOverride All
+Options FollowSymLinks
+Require all granted
+</Directory>
+</VirtualHost>

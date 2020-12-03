@@ -1,0 +1,26 @@
+- name: mkdir root
+  file:
+    path: "/var/www/{{ rootdirectory }}"
+    state: directory
+    owner: ADMIN_USER
+    group: ADMIN_USER
+    mode: 0755
+    recurse: no
+- name: mkdir web
+  file:
+    path: "/var/www/{{ rootdirectory }}/web"
+    state: directory
+    owner: apache
+    group: apache
+    mode: 0775
+    recurse: no
+- name: Setup Apache conffile
+  template:
+    src: ../templates/vhost.conf.j2
+    dest: "/etc/httpd/conf.d/{{ rootdirectory }}.conf"
+    mode: '0644'
+- name: Restart httpd
+  systemd:
+    name: httpd.service
+    state: reloaded
+    daemon_reload: yes
