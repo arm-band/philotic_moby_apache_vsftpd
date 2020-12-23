@@ -1,0 +1,46 @@
+- name: Remove vsftpd and httpd settings
+
+  become: yes
+  become_user: ADMIN_USER
+  become_method: su
+
+  hosts:
+    - add_vhost_servers
+
+  vars_files: ./vars/param_vars.yml
+
+  tasks:
+    - name: Remove user
+      user:
+        name: "{{ username }}"
+        state: absent
+        remove: yes
+    - name: Remove user in vsftpd user_list
+      blockinfile:
+        path: /etc/vsftpd/user_list
+        create: yes
+        insertafter: EOF
+        marker: "# {mark} ANSIBLE basic setup: {{ username }}"
+        block: ""
+    - name: Remove user_conf file
+      file:
+        path: "/etc/vsftpd/user_conf/{{ username }}"
+        state: absent
+    - name: Restart vsftpd
+      systemd:
+        name: vsftpd.service
+        state: restarted
+        daemon_reload: yes
+    - name: Remove Apache virtual site data
+      file:
+        path: "/var/www/{{ rootdirectory }}"
+        state: absent
+    - name: Remove Apache conffile
+      file:
+        path: "/etc/httpd/conf.d/{{ rootdirectory }}.conf"
+        state: absent
+    - name: Restart httpd
+      systemd:
+        name: httpd.service
+        state: reloaded
+        daemon_reload: yes
