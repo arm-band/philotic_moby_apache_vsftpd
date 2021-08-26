@@ -4,5 +4,11 @@ services:
     build: .
     volumes:
       - ./workspace:/workspace
+    networks:
+      - default
     tty: true
     entrypoint: bash -c "bash /workspace/entrypoint.sh && /bin/bash"
+networks:
+  default:
+    external:
+      name: br0
