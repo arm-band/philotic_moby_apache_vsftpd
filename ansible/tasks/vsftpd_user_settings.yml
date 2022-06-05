@@ -3,15 +3,15 @@
     path: /etc/vsftpd/user_list
     create: yes
     insertafter: EOF
-    marker: "# {mark} ANSIBLE basic setup: {{ username }}"
-    block: "{{ username }}"
+    marker: "# {mark} ANSIBLE basic setup: {{ ftp.username }}"
+    block: "{{ ftp.username }}"
 - name: Settings vsftpd user_conf
   blockinfile:
-    path: "/etc/vsftpd/user_conf/{{ username }}"
+    path: "/etc/vsftpd/user_conf/{{ ftp.username }}"
     create: yes
     insertafter: EOF
-    marker: "# {mark} ANSIBLE basic setup: {{ username }}"
-    block: "local_root=/var/www/{{ rootdirectory }}"
+    marker: "# {mark} ANSIBLE basic setup: {{ ftp.username }}"
+    block: "local_root=/var/www/{{ commons.rootdirectory }}"
 - name: Restart vsftpd
   systemd:
     name: vsftpd.service

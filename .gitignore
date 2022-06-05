@@ -1,4 +1,7 @@
+.env
 /workspace/*
 !/workspace/entrypoint.sh
-!/workspace/ansible/
-/workspace/ansible/vars/param_vars.yml
+/ansible/targets/hosts
+/ansible/vars/param_vars.yml
+/rsakey/*
+!/rsakey/.gitkeep

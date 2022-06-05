@@ -1,13 +1,20 @@
-version: '3.1'
+version: '3.8'
 services:
   ansible:
-    build: .
+    build:
+      context: ./
+      dockerfile: Dockerfile
+      args:
+        KEY_NAME: $KEY_NAME
+        SSH_REMOTEUSER: $SSH_REMOTEUSER
     volumes:
+      - ./ansible:/ansible
+      - ./rsakey:/rsakey
       - ./workspace:/workspace
     networks:
       - default
     tty: true
-    entrypoint: bash -c "bash /workspace/entrypoint.sh && /bin/bash"
+    entrypoint: bash -c "bash /workspace/entrypoint.sh $KEY_NAME $SSH_REMOTEUSER && /bin/bash"
 networks:
   default:
     external:

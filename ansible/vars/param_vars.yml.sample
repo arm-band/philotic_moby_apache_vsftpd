@@ -1,0 +1,11 @@
+permission:
+  adminuser: ADMIN_USER
+commons:
+  rootdirectory: sample_site
+apache:
+  domain: www.sample.jp
+  ipaddress: 192.0.2.1
+  portnum: 80
+ftp:
+  username: USERNAME
+  password: Password1234

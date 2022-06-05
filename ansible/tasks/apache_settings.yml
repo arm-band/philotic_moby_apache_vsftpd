@@ -1,14 +1,14 @@
-- name: mkdir root
+- name: mkdir virtual host root directory
   file:
-    path: "/var/www/{{ rootdirectory }}"
+    path: "/var/www/{{ commons.rootdirectory }}"
     state: directory
-    owner: ADMIN_USER
-    group: ADMIN_USER
+    owner: "{{ permission.adminuser }}"
+    group: "{{ permission.adminuser }}"
     mode: 0755
     recurse: no
 - name: mkdir web
   file:
-    path: "/var/www/{{ rootdirectory }}/web"
+    path: "/var/www/{{ commons.rootdirectory }}/web"
     state: directory
     owner: apache
     group: apache
@@ -16,8 +16,8 @@
     recurse: no
 - name: Setup Apache conffile
   template:
-    src: ../templates/vhost.conf.j2
-    dest: "/etc/httpd/conf.d/{{ rootdirectory }}.conf"
+    src: ../templates/apache/vhost.conf.j2
+    dest: "/etc/httpd/conf.d/{{ commons.rootdirectory }}.conf"
     mode: '0644'
 - name: Restart httpd
   systemd:
