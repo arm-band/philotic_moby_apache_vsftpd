@@ -19,7 +19,7 @@
     src: ../templates/apache/vhost.conf.j2
     dest: "/etc/httpd/conf.d/{{ commons.rootdirectory }}.conf"
     mode: '0644'
-- name: Restart httpd
+- name: Reload httpd conf
   systemd:
     name: httpd.service
     state: reloaded

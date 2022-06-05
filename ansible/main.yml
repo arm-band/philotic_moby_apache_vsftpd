@@ -12,18 +12,7 @@
   tasks:
     - name: Add Linux User
       include_tasks: ./tasks/add_user.yml
-      vars:
-        user: "{{ ftp.username }}"
-        passwd: "{{ ftp.password }}"
     - name: Settings vsftpd user_list and user_conf
       include_tasks: ./tasks/vsftpd_user_settings.yml
-      vars:
-        user: "{{ ftp.username }}"
-        directory: "{{ commons.rootdirectory }}"
     - name: Setup Apache conffile
       include_tasks: ./tasks/apache_settings.yml
-      vars:
-        directory: "{{ commons.rootdirectory }}"
-        url: "{{ apache.domain }}"
-        ip: "{{ apache.ipaddress }}"
-        portnumber: "{{ apache.portnum }}"

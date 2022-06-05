@@ -39,7 +39,7 @@
       file:
         path: "/etc/httpd/conf.d/{{ commons.rootdirectory }}.conf"
         state: absent
-    - name: Restart httpd
+    - name: Reload httpd conf
       systemd:
         name: httpd.service
         state: reloaded
