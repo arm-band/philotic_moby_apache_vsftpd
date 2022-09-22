@@ -20,8 +20,9 @@ Ansible コントロールノード を Dockerコンテナ として構築し、
 2. `docker-compose exec ansible /bin/bash`
 3. 1.で作成された公開鍵をリモートサーバに送り込んでください
 4. `ansible-playbook -i /ansible/targets/hosts /ansible/main.yml -u SSH_REMOTEUSER --private-key="/root/.ssh/KEY_NAME" -K` (`SSH_REMOTEUSER`, `KEY_NAME` は実際の値に置き換えてください)
-    - または、 `/command_ansible/` に上述コマンドのショートカットを生成するので、 `/command_ansible/ansible_do.sh` とすれば実行できます
-    - DryRun 用の `/command_ansible/ansible_test.sh` もあります
+    - または、 `/command_ansible/` に上述コマンドのショートカットを生成するので、 `/command_ansible/run.sh` とすれば実行できます
+    - DryRun 用の `/command_ansible/dryrun.sh` もあります
+    - ロールバック用の `/command_ansible/rollback.sh` もあります
 
 ### Finish
 
